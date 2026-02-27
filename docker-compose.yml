@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: hospital_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./chroma_db:/app/chroma_db # Persistent database
+      - ./data:/app/data
+    env_file:
+      - .env
+    networks:
+      - ai_network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: hospital_frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    networks:
+      - ai_network
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: hospital_n8n
+    ports:
+      - "5679:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - ai_network
+
+networks:
+  ai_network:
+    driver: bridge
+
+volumes:
+  n8n_data:

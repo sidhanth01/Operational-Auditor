@@ -1,0 +1,12 @@
+# Credentials
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Database (Important: n8n will populate this, but don't track it in Git)
+chroma_db/

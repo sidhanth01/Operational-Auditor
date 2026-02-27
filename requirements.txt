@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+langchain
+langchain-groq
+langchain-chroma
+langchain-community
+langchain-huggingface
+chromadb
+sentence-transformers
+streamlit
+python-dotenv
+requests
+python-multipart  # CRITICAL: Needed for file uploads
