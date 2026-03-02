@@ -9,25 +9,23 @@ from threading import Thread
 from backend.query_engine import analyze_query
 from backend.ingestor import initial_sync, start_watcher
 
-# ============================================================
+
 # LOGGING
-# ============================================================
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# ============================================================
+
 # APP INITIALIZATION
-# ============================================================
 
 app = FastAPI(
     title="Hospital Auditor RAG API",
     description="Backend for detecting factual inconsistencies in hospital reports"
 )
 
-# ============================================================
+
 # CORS
-# ============================================================
 
 app.add_middleware(
     CORSMiddleware,
@@ -37,16 +35,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ============================================================
+
 # SCHEMA
-# ============================================================
 
 class QueryRequest(BaseModel):
     query: str
 
-# ============================================================
+
 # RATE LIMITING + PROCESS TIMER
-# ============================================================
 
 rate_limit_store = {}
 RATE_LIMIT_SECONDS = 1.0
@@ -74,9 +70,7 @@ async def rate_limiter_and_timer(request: Request, call_next):
 
     return response
 
-# ============================================================
 # ENDPOINTS
-# ============================================================
 
 @app.get("/health")
 async def health_check():
@@ -104,9 +98,7 @@ async def trigger_sync():
         logger.error(f"Sync Error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# ============================================================
 # STARTUP & SHUTDOWN
-# ============================================================
 
 @app.on_event("startup")
 async def startup_event():
