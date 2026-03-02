@@ -24,9 +24,9 @@ llm = ChatGroq(
 def analyze_query(query: str):
     query_lower = query.lower().strip()
 
-    # ============================================================
-    # 1️⃣ SECURITY GUARDRAIL
-    # ============================================================
+
+    # SECURITY GUARDRAIL
+    
     injection_keywords = [
         "ignore previous instructions",
         "system prompt",
@@ -45,9 +45,9 @@ def analyze_query(query: str):
             "provenance": []
         }
 
-    # ============================================================
-    # 2️⃣ CONVERSATIONAL HANDLING
-    # ============================================================
+  
+    #  CONVERSATIONAL HANDLING
+    
     conversational_inputs = [
         "hi", "hello", "hey",
         "how are you", "who are you",
@@ -65,9 +65,9 @@ def analyze_query(query: str):
             "provenance": []
         }
 
-    # ============================================================
-    # 3️⃣ RETRIEVAL (Improved)
-    # ============================================================
+  
+    #  RETRIEVAL (Improved)
+    
     results = vector_store.similarity_search_with_relevance_scores(query, k=6)
 
     # Slightly relaxed threshold for better cross-doc comparison
@@ -83,9 +83,9 @@ def analyze_query(query: str):
             "provenance": []
         }
 
-    # ============================================================
-    # 4️⃣ STRUCTURED CONTEXT (Critical Improvement)
-    # ============================================================
+  
+    # STRUCTURED CONTEXT (Critical Improvement)
+    
     structured_context_blocks = []
 
     for doc, score in relevant_pairs:
@@ -98,9 +98,9 @@ def analyze_query(query: str):
 
     context_text = "\n\n".join(structured_context_blocks)
 
-    # ============================================================
-    # 5️⃣ ENHANCED SYSTEM PROMPT (Analytical + Deterministic)
-    # ============================================================
+   
+    # ENHANCED SYSTEM PROMPT (Analytical + Deterministic)
+  
     system_prompt = """
 You are a strict, evidence-based Hospital Operational Auditor.
 
@@ -154,17 +154,17 @@ USER QUERY:
 Perform structured audit analysis as instructed.
 """
 
-    # ============================================================
-    # 6️⃣ LLM INVOCATION
-    # ============================================================
+    
+    # LLM INVOCATION
+    
     response = llm.invoke([
         ("system", system_prompt),
         ("human", human_prompt)
     ])
 
-    # ============================================================
-    # 6.5️⃣ UI ENHANCEMENT (Emoji Injection)
-    # ============================================================
+    
+    # UI ENHANCEMENT (Emoji Injection)
+   
     final_output = response.content
     
     # Inject Emojis for Confidence Level
@@ -179,9 +179,9 @@ Perform structured audit analysis as instructed.
     final_output = final_output.replace("Conflicting Evidence:", "⚠️ **Conflicting Evidence Detected:**")
     final_output = final_output.replace("Reasoning:", "🔍 **Reasoning:**")
 
-    # ============================================================
-    # 7️⃣ CLEAN PROVENANCE
-    # ============================================================
+
+    # CLEAN PROVENANCE
+   
     provenance = []
 
     for doc, score in relevant_pairs:
