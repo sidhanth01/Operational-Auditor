@@ -109,7 +109,7 @@ hospital-rag-project/
 * Query: "What were the average emergency department wait times for Q1?"
 
 * Case 2: The Staffing Reality Gap
-* Query: "Was the emergency department adequately staffed during night shifts?"
+* Query: "Was the emergency department sufficiently staffed during the Q1 night shifts?"
 
 ---
 
