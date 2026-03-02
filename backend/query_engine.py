@@ -9,8 +9,9 @@ load_dotenv()
 # --- Embeddings & Vector Store ---
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 vector_store = Chroma(
-    persist_directory="./chroma_db",
-    embedding_function=embeddings
+    persist_directory="/app/db",
+    embedding_function=embeddings,
+    collection_name="hospital_audit_v1"
 )
 
 # --- LLM ---

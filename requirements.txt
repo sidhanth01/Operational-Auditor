@@ -11,3 +11,4 @@ streamlit
 python-dotenv
 requests
 python-multipart  # CRITICAL: Needed for file uploads
+watchdog==4.0.0
