@@ -10,9 +10,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
-# ============================================================
+
 # CONFIG
-# ============================================================
 
 DATA_DIR = "/app/data"
 CHROMA_DIR = "/app/db"
@@ -30,9 +29,7 @@ DEBOUNCE_SECONDS = 2
 
 observer = Observer()
 
-# ============================================================
 # CORE INGESTION LOGIC
-# ============================================================
 
 def initial_sync():
     """Full re-index of all .txt files with upsert (no duplicates)."""
@@ -79,9 +76,9 @@ def initial_sync():
         logger.info(f"✅ Sync complete. {len(final_ids)} unique chunks indexed.")
 
 
-# ============================================================
+
 # WATCHDOG HANDLER
-# ============================================================
+
 
 class DataChangeHandler(FileSystemEventHandler):
     def on_created(self, event):
@@ -111,9 +108,8 @@ class DataChangeHandler(FileSystemEventHandler):
         initial_sync()
 
 
-# ============================================================
+
 # WATCHER START FUNCTION
-# ============================================================
 
 def start_watcher():
     """Starts file monitoring in background thread (non-blocking)."""
