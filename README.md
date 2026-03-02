@@ -10,7 +10,7 @@ An intelligent auditing platform designed to analyze hospital reports, detect op
 | **LLM Inference** | **Groq (Llama 3)** | For lightning-fast reasoning. It detects conflicts in sub-seconds. |
 | **Framework** | **LangChain** | Best for building RAG pipelines and handling complex audit reasoning. |
 | **Database** | **ChromaDB** | Simple, persistent, and stays local. Perfect for keeping data private. |
-| **Automation** | **n8n** | To automate document ingestion without writing extra backend code. |
+| **Automation** | **Watchdog** | To automate document ingestion without writing extra backend code. |
 | **Backend** | **FastAPI** | Fast, modern, and provides automatic API documentation (Swagger). |
 
 
@@ -34,7 +34,7 @@ The project is built as a multi-service containerized ecosystem:
 1. **Frontend (Streamlit)**: Centered, humanized UI for auditor interaction.
 2. **Backend (FastAPI)**: Orchestrates LangChain for retrieval and conflict detection logic.
 3. **Vector Database (ChromaDB)**: Stores embeddings of the hospital corpus for semantic retrieval.
-4. **Automation (n8n)**: Handles real-time document ingestion and backend orchestration.
+4. **Automation**: Handles real-time document ingestion.
 
 ---
 
@@ -79,18 +79,7 @@ docker-compose up
 
 ### 5. Local Access Points
 * Auditor UI: http://localhost:8501
-
-* n8n Automation: http://localhost:5679
-
 * Backend Docs: http://localhost:8000/docs
----
-
-### 6. 🔄 Automation Workflow (n8n)
-* To demonstrate the "Automation thinking" requirement:
-* Access n8n at http://localhost:5679.
-* Trigger: Set a "Read from Disk" node pointing to the mapped container path /app/data/*.txt.
-* Action: Connect to an "HTTP Request" node (POST) targeting the backend ingestion endpoint http://backend:8000/api/ingest.
-* Execute: n8n will read your hospital reports and sync them to the Vector DB automatically.
 
 ---
 
@@ -105,7 +94,6 @@ hospital-rag-project/
 │   ├── query_engine.py  # Groq-powered reasoning, conflict detection, and scoring
 │   └── requirements.txt # Dependencies (FastAPI, LangChain, Groq, Chroma)
 ├── chroma_db/           # Local storage for Vector Database
-├── n8n_config/          # Exported n8n workflow .json
 ├── docs/               
 │   └── design_doc.md   # Scalability, bottlenecks, and cost trade-offs
 ├── docker-compose.yml   # Multi-service deployment
