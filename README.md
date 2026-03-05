@@ -59,7 +59,7 @@ The project is built as a multi-service containerized ecosystem:
 ### 2. Prepare Environment
 Create a `.env` file in the root directory and add your key:
 ```env
-Groq_API_KEY="your_Groq_api_key_here"
+GROQ_API_KEY="your_Groq_api_key_here"
 ```
 ---
 
